@@ -13,13 +13,13 @@
     --font-family: -apple-system, Helvetica, sans-serif;
     --font-size-1: 1rem;
     --font-size-2: 3rem;
-    --font-size-base: clamp(16px, 1.6vw, 18px);
+    --font-size-base: clamp(12px, 1.6vw, 32px);
     --font-weight-bold: 700;
     --font-weight-normal: 400;
-    --line-height-base: 1.4;
+    --line-height-base: 1.2;
     --space-1: 0.5rem;
-    --space-2: 1rem;
-    --space-3: 4rem;
+    --space-2: 2.5rem;
+    --space-3: 6rem;
     --transition-speed: 200ms;
   }
 
@@ -36,135 +36,204 @@
   const CONFIG = {
     commandPathDelimiter: '/',
     commandSearchDelimiter: ' ',
-    defaultSearchTemplate: 'https://duckduckgo.com/?q={}',
-    openLinksInNewTab: true,
+    defaultSearchTemplate: 'https://google.com/search?q={}',
+    openLinksInNewTab: false,
     suggestionLimit: 4,
   };
 
   const COMMANDS = new Map([
+    // column 1
     [
-      'b',
+      'yt',
       {
-        name: 'Dribbble',
-        url: 'https://dribbble.com/shots/popular',
+        name: 'youtube',
+        searchTemplate: '/results?search_query={}',
+        url: 'https://youtube.com/feed/subscriptions',
       },
     ],
     [
-      'c',
+      'ym',
       {
-        name: 'Calendar',
-        url: 'https://calendar.google.com',
+        name: 'youtube music',
+        searchTemplate: '/search?q={}',
+        url: 'https://music.youtube.com/',
+      },
+    ],
+    [
+      's',
+      {
+        name: 'spotify',
+        url: 'https://open.spotify.com',
+      },
+    ],
+    [
+      't',
+      {
+        name: 'twitch',
+        searchTemplate: '/{}',
+        url: 'https://twitch.tv',
+        suggestions: [
+          'dagametrain',
+          'pesticon',
+          'aurismat',
+          'kintailfox',
+        ],
       },
     ],
     [
       'd',
-      {
-        name: 'Drive',
-        url: 'https://drive.google.com',
-      },
-    ],
-    [
-      'f',
-      {
-        name: 'Figma',
-        url: 'https://www.figma.com/files/recent',
-      },
-    ],
-    [
-      'g',
-      {
-        name: 'GitHub',
-        url: 'https://github.com',
-      },
-    ],
-    [
-      'i',
       {
         name: 'Discord',
         url: 'https://discord.com/channels/@me',
       },
     ],
     [
-      'k',
+      'twt',
       {
-        name: 'Keep',
-        url: 'https://keep.google.com',
-      },
-    ],
-    [
-      'm',
-      {
-        name: 'Mail',
-        url: 'https://mail.proton.me/u/0/inbox',
-      },
-    ],
-    [
-      'n',
-      {
-        name: 'Notion',
-        url: 'https://www.notion.so',
-      },
-    ],
-    [
-      'r',
-      {
-        name: 'Reddit',
-        searchTemplate: '/search?q={}',
-        suggestions: [
-          'r/r/startpages',
-          'r/r/webdev',
-          'r/r/onebag',
-          'r/r/fujix',
-        ],
-        url: 'https://www.reddit.com',
-      },
-    ],
-    [
-      't',
-      {
-        name: 'DeepL',
-        searchTemplate: '/en/translator#en/es/{}',
-        suggestions: ['t/en/translator#es/en/'],
-        url: 'https://www.deepl.com/en/translator',
-      },
-    ],
-    [
-      'u',
-      {
-        name: 'Supabase',
-        url: 'https://app.supabase.com/projects',
-      },
-    ],
-    [
-      'v',
-      {
-        name: 'Vercel',
-        suggestions: ['sdk.vercel.ai'],
-        url: 'https://vercel.com/dashboard',
-      },
-    ],
-    [
-      'w',
-      {
-        name: 'Twitter',
+        name: 'twitter',
         url: 'https://twitter.com/home',
       },
     ],
     [
-      'y',
+      'fm',
       {
-        name: 'YouTube',
-        searchTemplate: '/results?search_query={}',
-        url: 'https://youtube.com/feed/subscriptions',
+        name: 'fb messenger',
+        url: 'https://facebook.com/messages',
       },
     ],
     [
-      '0',
+      'fb',
       {
-        name: 'local',
-        searchTemplate: ':{}',
-        suggestions: ['0 54323', '0 54324'],
-        url: 'http://localhost:3000',
+        name: 'facebook',
+        url: 'https://facebook.com',
+      },
+    ],
+// column 2
+    [
+      'git',
+      {
+        name: 'github',
+        url: 'https://github.com/aurismat',
+      },
+    ],
+    [
+      'lab',
+      {
+        name: 'gitlab',
+        url: 'https://gitlab.com/aurismat',
+      },
+    ],
+    [
+      'cht',
+      {
+        name: 'cht.sh',
+        searchTemplate: '/{}',
+        url: 'https://cht.sh',
+        suggestions: [
+          'tmux',
+          'ssh',
+          'docker',
+          'ip',
+        ],
+      },
+    ],
+    [
+      'c',
+      {
+        name: 'carbon',
+        url: 'https://carbon.now.sh',
+      },
+    ],
+    [
+      'lua',
+      {
+        name: 'luacheck',
+        url: 'https://gitspartv.github.io/lua-patterns/?pattern=\\',
+      },
+    ],
+    [
+      'gdb',
+      {
+        name: 'online gdb',
+        url: 'https://onlinegdb.com/',
+      },
+    ],
+    [
+      'rgx',
+      {
+        name: 'regex101',
+        url: 'https://regex101.com/',
+      },
+    ],
+    [
+      'uc',
+      {
+        name: 'unknowncheats',
+        url: 'https://www.unknowncheats.me/forum/index.php',
+      },
+    ],
+    // column 3
+    [
+      'm',
+      {
+        name: 'gmail',
+        searchTemplate: '/mail/u/{}',
+        url: 'https://mail.google.com/mail/u/0',
+        suggestions: [
+          '0',
+          '1',
+          '2',
+          '3',
+        ],
+      },
+    ],
+    [
+      'k',
+      {
+        name: 'keep',
+        url: 'https://keep.google.com',
+      },
+    ],
+    [
+      'gpt',
+      {
+        name: 'chatgpt',
+        url: 'https://chat.openai.com/',
+      },
+    ],
+    [
+      'sdb',
+      {
+        name: 'steamdb',
+        url: 'https://steamdb.info/',
+      },
+    ],
+    [
+      'scp',
+      {
+        name: 'scope.gg',
+        url: 'https://scope.gg/',
+      },
+    ],
+    [
+      'osrs',
+      {
+        name: 'osrs wiki',
+        url: 'https://oldschool.runescape.wiki/',
+      },
+    ],
+    [
+      'arch',
+      {
+        name: 'arch wiki',
+        url: 'https://wiki.archlinux.org/',
+      },
+    ],
+    [
+      'fxt',
+      {
+        name: 'fextralife',
+        url: 'https://www.wiki.fextralife.com/',
       },
     ],
   ]);
@@ -178,7 +247,7 @@
       margin: 0 auto;
       max-width: 10rem;
       padding: 0 0 0 var(--space-1);
-      width: 100vw;
+      width: 160vw;
     }
 
     .command {
@@ -214,7 +283,7 @@
 
     @media (min-width: 800px) {
       .commands {
-        columns: 4;
+        columns: 3;
         max-width: 40rem;
       }
     }
@@ -415,14 +484,15 @@
       return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    static #fetchDuckDuckGoSuggestions(search) {
+    static #googleSuggests(search) {
       return new Promise((resolve) => {
-        window.autocompleteCallback = (res) => {
+        window.callback = (res) => {
           const suggestions = [];
-
-          for (const item of res) {
-            if (item.phrase === search.toLowerCase()) continue;
-            suggestions.push(item.phrase);
+          console.log(res)
+          console.log(res[1][1])
+          for (var i = 0; i < res[1].length; i++) {
+            if (res[1][i].toLowerCase() === search.toLowerCase()) continue;
+            suggestions.push(res[1][i]);
           }
 
           resolve(suggestions);
@@ -430,9 +500,10 @@
 
         const script = document.createElement('script');
         document.querySelector('head').appendChild(script);
-        script.src = `https://duckduckgo.com/ac/?callback=autocompleteCallback&q=${search}`;
+
+        script.src = `http://suggestqueries.google.com/complete/search?client=firefox&q=${search}&callback=callback&hl=en`
         script.onload = script.remove;
-      });
+      })
     }
 
     static #formatSearchUrl(url, searchPath, search) {
@@ -538,9 +609,14 @@
       let suggestions = COMMANDS.get(oq.query)?.suggestions ?? [];
 
       if (oq.search && suggestions.length < CONFIG.suggestionLimit) {
-        const res = await Search.#fetchDuckDuckGoSuggestions(oq.search);
-        const formatted = Search.#attachSearchPrefix(res, oq);
-        suggestions = suggestions.concat(formatted);
+        try {
+          const res = await Search.#googleSuggests(oq.search);
+          const formatted = Search.#attachSearchPrefix(res, oq);
+          suggestions = suggestions.concat(formatted);
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
+        }
+
       }
 
       const nq = Search.#parseQuery(this.#input.value);
